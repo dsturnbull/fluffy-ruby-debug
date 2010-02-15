@@ -1,0 +1,44 @@
+$ gem install ruby-fluffy-debug -v 0.0.2 (0.0.1 is somewhere on the gem web interfering)
+
+Old and busted
+--------------
+la/de/da.rb:
+describe La do
+  it 'should hurr' do
+    require 'ruby-debug'
+    debugger
+  end
+end
+
+$ spec -fs -c la/de/da.rb
+(rdb:1) irb
+INTERNAL ERROR!!! Unrecognized switch: -fs
+
+Cool new hip way
+----------------
+la/de/do.rb:
+describe La do
+  it 'should hurr' do
+    require 'fluffy-ruby-debug'
+    debugger
+  end
+end
+
+$ spec -fs -c la/de/da.rb
+(rdb:1) irb
+irb: warn: can't alias context from irb_context.
+irb(#<Spec::Blah#0x10345>):001:0> 
+
+TODO
+----
+Override debugger to prevent falling out of the current frame - e.g.
+
+class A
+  def wee
+    poop      # debugger ends up here
+  end
+
+  def poop
+    debugger  # instead of here
+  end
+end
